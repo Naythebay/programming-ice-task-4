@@ -1,0 +1,87 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+package com.mycompany.chartapplication.mavenproject11icetask4;
+
+/**
+ *
+ * @author User
+ */
+public class Mavenproject11icetask4 {
+
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
+}
+public class HomeMakeoverReport {
+    public static void main(String[] args) {
+        String[] types = {"Bathrooms", "Kitchens", "Garden"};
+        // PUT YOUR EXACT PDF NUMBERS HERE
+        int[][] jobs = {
+            {8, 2, 5, 4, 7, 2},
+            {4, 5, 3, 6, 2, 8},
+            {3, 1, 4, 6, 2, 5}
+        };
+        String[] months = {"MONTH 1","MONTH 2","MONTH 3","MONTH 4","MONTH 5","MONTH 6"};
+        int[] totals = new int[6];
+
+        for(int m=0; m<6; m++){
+            for(int t=0; t<3; t++) totals[m] += jobs[t][m];
+        }
+
+        System.out.println("HOME MAKEOVER REPORT");
+        System.out.printf("%-15s"," ");
+        for(String mo: months) System.out.printf("%-10s", mo);
+        System.out.println();
+        
+        for(int t=0; t<3; t++){
+            System.out.printf("%-15s", types[t]);
+            for(int m=0; m<6; m++) System.out.printf("%-10d", jobs[t][m]);
+            System.out.println();
+        }
+        System.out.printf("%-15s","MONTHLY TOTALS");
+        for(int tot: totals) System.out.printf("%-10d", tot);
+        System.out.println("\n");
+        
+        // *** logic
+        for(int m=0; m<6; m++){
+            if(totals[m] > 10) System.out.println(months[m]+": "+totals[m]+" ***");
+            else System.out.println(months[m]+": "+totals[m]);
+        }
+    }
+}
+public interface IStaff { String getStaffHiringProcess(); }
+public abstract class Staff implements IStaff {
+    protected int staffNumber;
+    protected String staffLocation;
+    public Staff(int staffNumber, String staffLocation){
+        this.staffNumber = staffNumber;
+        this.staffLocation = staffLocation;
+    }
+    public abstract void printStaffHiring();
+}
+public class StaffHiring extends Staff {
+    public StaffHiring(int staffNumber, String staffLocation){ super(staffNumber, staffLocation); }
+    @Override public String getStaffHiringProcess(){
+        return (staffNumber < 20) ? "YES" : "NO";
+    }
+    @Override public void printStaffHiring(){
+        System.out.println("\nSTAFF HIRING REPORT");
+        System.out.println("**************************");
+        System.out.println("LOCATION: " + staffLocation);
+        System.out.println("STAFF NUMBER: " + staffNumber);
+        System.out.println("HIRE STAFF: " + getStaffHiringProcess());
+    }
+}
+import java.util.Scanner;
+public class UseStaff {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the current staff number: ");
+        int num = sc.nextInt(); sc.nextLine();
+        System.out.print("Enter the staff hiring location: ");
+        String loc = sc.nextLine();
+        new StaffHiring(num, loc).printStaffHiring();
+    }
+}
